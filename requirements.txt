@@ -1,0 +1,6 @@
+requests
+selenium
+chromedriver_binary==105.0.5195.52
+subprocess32
+autopep8
+pyperclip
