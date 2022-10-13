@@ -1,24 +1,44 @@
+import time
 from time import sleep
 import requests
 import json
 import os
-from selenium import webdriver
 import chromedriver_binary
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import subprocess
 from subprocess import PIPE
 import pyperclip
 
-userID = "ruymtnw"  # 自分のAtCoderのユーザーIDを設定する
-unix_second = 0
+# 自分のAtCoderのユーザーIDを設定する
+userID = "ruymtnw"
+
+# 現在のunix_secondの取得
+now = int(time.time())
+
+# unix_secondの取得
+if os.path.exists("unix_second.txt"):
+    f = open("unix_second.txt", 'r', encoding='UTF-8')
+    unix_second = f.read()
+else:
+    unix_second = "0"
+
+# AtCoderのAPIのURL
 api_path = "https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user=" + \
-    userID + "&from_second=" + str(unix_second)
+    userID + "&from_second=" + unix_second
 
 
 def main():
     submissions = getSubmissionData()
+    if len(submissions) == 0:
+        print("提出履歴がありません")
+        return
+    pro_bar = ' ' * len(submissions)
+    print('\r[{0}] {1}/{2}'.format(pro_bar, 0, len(submissions)), end='')
     makeSubmissionFolder(submissions)
     insertAnswers(submissions)
+    print("\n取得が完了しました")
 
 
 def getSubmissionData():
@@ -53,8 +73,11 @@ def insertAnswers(submissions):
     submissions (list): 提出データのリスト
     """
 
-    driver = webdriver.Chrome()
-    for submission in submissions:
+    options = Options()
+    # ブラウザを表示しない
+    options.headless = True
+    driver = webdriver.Chrome(options=options)
+    for i, submission in enumerate(submissions):
         contest_id = submission["contest_id"].upper()
         problem_id = submission["problem_id"][-1]
         sub_url = "https://atcoder.jp/contests/" + \
@@ -80,8 +103,18 @@ def insertAnswers(submissions):
         # 負荷軽減のために3秒待機
         sleep(3)
 
+        # 進捗を表示
+        pro_size = len(submissions)
+        pro_bar = ('=' * (i + 1)) + (' ' * (pro_size - i - 1))
+        print('\r[{0}] {1}/{2}'.format(pro_bar, i + 1, pro_size), end='')
+        time.sleep(0.5)
+
     driver.quit()
+
+    with open("unix_second.txt", "w") as f:
+        f.write(str(now))
 
 
 if __name__ == "__main__":
+    print("取得中...")
     main()
