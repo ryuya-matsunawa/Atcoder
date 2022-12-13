@@ -48,8 +48,7 @@ def getSubmissionData():
     api_url = api_path
     response = requests.get(api_url)
     jsonData = response.json()
-    jsonData = list(
-        filter(lambda x: x["result"] == "AC" and "Python" in x["language"], jsonData))
+    jsonData = list(filter(lambda x: x["result"] == "AC" and "Python" in x["language"] or "PyPy3" in x["language"], jsonData))
     return jsonData
 
 
