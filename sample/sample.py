@@ -15,3 +15,4 @@ S0 = list(accumulate(a))
 import math
 math.ceil(1.2)
 math.floor(1.2)
+math.gcd(10,20,30)
