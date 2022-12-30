@@ -16,3 +16,10 @@ import math
 math.ceil(1.2)
 math.floor(1.2)
 math.gcd(10,20,30)
+
+# xを9進数に変換
+import numpy as np
+n = np.base_repr(x, base=9)
+
+# 8進数の文字列を10進数に変換
+n = int(str(n), 8)
