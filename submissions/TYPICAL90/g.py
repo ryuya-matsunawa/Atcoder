@@ -1,6 +1,14 @@
-H, W = map(int, input().split())
+import bisect
+n = int(input())
+a = sorted(list(map(int, input().split())))
+q = int(input())
 
-if H == 1 or W == 1:
-    print(H*W)
-else:
-    print(((H+1)//2)*((W+1)//2))
+for _ in range(q):
+    b = int(input())
+    i = bisect.bisect(a, b)
+    if i == 0:
+        print(a[i]-b)
+    elif i == len(a):
+        print(b-a[i-1])
+    else:
+        print(min(b-a[i-1], a[i]-b))
