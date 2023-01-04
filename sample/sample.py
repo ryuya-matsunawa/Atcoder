@@ -23,3 +23,10 @@ n = np.base_repr(x, base=9)
 
 # 8進数の文字列を10進数に変換
 n = int(str(n), 8)
+
+# 素数判定
+def is_prime(n):
+    for i in range(2,int(n**(1/2))+1):
+        if n % i == 0:
+            return False
+    return True
