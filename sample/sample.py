@@ -9,6 +9,9 @@ dict = defaultdict(int)
 from itertools import combinations
 combi = list(combinations(range(1, n+1), 2))
 
+from itertools import permutations
+perm = list(permutations(range(1, n+1), 2))
+
 from itertools import accumulate
 S0 = list(accumulate(a))
 
