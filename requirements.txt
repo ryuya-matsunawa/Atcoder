@@ -1,6 +1,6 @@
 requests
 selenium
-chromedriver_binary==107.0.5304.62.0
 subprocess32
 autopep8
 pyperclip
+webdriver-manager
