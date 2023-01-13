@@ -3,7 +3,7 @@ from time import sleep
 import requests
 import json
 import os
-import chromedriver_binary
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -75,7 +75,7 @@ def insertAnswers(submissions):
     options = Options()
     # ブラウザを表示しない
     options.headless = True
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     for i, submission in enumerate(submissions):
         contest_id = submission["contest_id"].upper()
         problem_id = submission["problem_id"][-1]
