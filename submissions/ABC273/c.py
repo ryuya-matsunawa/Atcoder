@@ -16,3 +16,7 @@ ans = collections.Counter(A)
 
 for i in range(N):
     print(ans[i])
+
+
+
+
