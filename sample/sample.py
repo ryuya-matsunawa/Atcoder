@@ -10,6 +10,14 @@ sys.setrecursionlimit(10 ** 7)
 from collections import defaultdict
 dict = defaultdict(int)
 
+from collections import deque
+que = deque()
+# 4方向
+d = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+
+# 8方向
+d = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
+
 from itertools import combinations
 combi = list(combinations(range(1, n+1), 2))
 
